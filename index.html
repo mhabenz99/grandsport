@@ -1,30 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Embed Apps Script</title>
   <style>
-    .responsive-iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-    }
+    html, body { margin:0; padding:0; height:100%; }
+    iframe { border:none; width:100%; height:100%; }
   </style>
 </head>
 <body>
-  <div> 
-    <iframe id="myframe" class="responsive-iframe" src="" allowFullScreen></iframe>
-  </div>
   <script>
-    const apps = new URL(window.location);
-    const formUrl = apps.searchParams.get('apps');
-    const url = decodeURIComponent(formUrl)
-          document.getElementById('myframe').src = url
+    const params = new URLSearchParams(location.search);
+    const appUrl = params.get('apps');
+    if (appUrl) {
+      const iframe = document.createElement('iframe');
+      iframe.src = appUrl;
+      document.body.appendChild(iframe);
+    } else {
+      document.body.innerHTML = '<p>กรุณาระบุ <code>?apps=YOUR_WEB_APP_URL</code></p>';
+    }
   </script>
 </body>
 </html>
